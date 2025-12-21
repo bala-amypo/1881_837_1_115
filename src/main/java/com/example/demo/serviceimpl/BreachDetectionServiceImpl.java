@@ -1,12 +1,28 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.BreachRecord;
+import com.example.demo.repository.BreachRecordRepository;
+import com.example.demo.service.BreachDetectionService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface BreachDetectionService {
+@Service
+public class BreachDetectionServiceImpl implements BreachDetectionService {
 
-    List<BreachRecord> getAllBreaches();
+    private final BreachRecordRepository repository;
 
-    List<BreachRecord> getBreachesByShipment(Long shipmentId);
+    public BreachDetectionServiceImpl(BreachRecordRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public List<BreachRecord> getAllBreaches() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<BreachRecord> getBreachesByShipment(Long shipmentId) {
+        return repository.findByShipmentId(shipmentId);
+    }
 }
