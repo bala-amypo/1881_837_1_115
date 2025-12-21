@@ -1,24 +1,40 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "temperature_sensor_logs")
+@Table(name = "temperature_sensor_log")
 public class TemperatureSensorLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String shipmentCode;
-    private Double temperature;
-    private LocalDateTime loggedAt;
+    private String status;
 
-    @PrePersist
-    public void onCreate() {
-        loggedAt = LocalDateTime.now();
+    private Double temperature;
+
+    public Long getId() {
+        return id;
     }
 
-    // Getters and Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
 }

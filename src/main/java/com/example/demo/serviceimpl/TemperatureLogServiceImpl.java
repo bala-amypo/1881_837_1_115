@@ -17,12 +17,17 @@ public class TemperatureLogServiceImpl implements TemperatureLogService {
     }
 
     @Override
-    public TemperatureSensorLog saveLog(TemperatureSensorLog log) {
+    public TemperatureSensorLog save(TemperatureSensorLog log) {
         return repository.save(log);
     }
 
     @Override
-    public List<TemperatureSensorLog> getLogsByShipment(Long shipmentId) {
-        return repository.findByShipmentId(shipmentId);
+    public List<TemperatureSensorLog> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<TemperatureSensorLog> getByStatus(String status) {
+        return repository.findByStatus(status);
     }
 }

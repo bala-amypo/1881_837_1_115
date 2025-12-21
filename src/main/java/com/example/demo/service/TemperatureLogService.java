@@ -1,12 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.TemperatureSensorLog;
-
 import java.util.List;
 
 public interface TemperatureLogService {
 
-    TemperatureSensorLog saveLog(TemperatureSensorLog log);
+    TemperatureSensorLog save(TemperatureSensorLog log);
 
-    List<TemperatureSensorLog> getLogsByShipment(Long shipmentId);
+    List<TemperatureSensorLog> getAll();
+
+    List<TemperatureSensorLog> getByStatus(String status);
 }
