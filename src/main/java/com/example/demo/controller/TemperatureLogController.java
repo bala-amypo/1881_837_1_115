@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/temperature-logs")
+@RequestMapping("/api/temperature")
 public class TemperatureLogController {
 
     private final TemperatureLogService service;
@@ -17,12 +17,17 @@ public class TemperatureLogController {
     }
 
     @PostMapping
-    public TemperatureSensorLog addLog(@RequestBody TemperatureSensorLog log) {
-        return service.saveLog(log);
+    public TemperatureSensorLog save(@RequestBody TemperatureSensorLog log) {
+        return service.save(log);
     }
 
-    @GetMapping("/shipment/{shipmentId}")
-    public List<TemperatureSensorLog> getLogsByShipment(@PathVariable Long shipmentId) {
-        return service.getLogsByShipment(shipmentId);
+    @GetMapping
+    public List<TemperatureSensorLog> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/status/{status}")
+    public List<TemperatureSensorLog> getByStatus(@PathVariable String status) {
+        return service.getByStatus(status);
     }
 }
