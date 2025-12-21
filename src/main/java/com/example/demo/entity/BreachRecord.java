@@ -1,30 +1,21 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "breach_records")
+@Table(name = "breach_record")
 public class BreachRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String shipmentCode;
-    private Double breachValue;
-    private String severity;
-    private String resolutionStatus;
+    @Column(name = "shipment_id", nullable = false)
+    private Long shipmentId;
 
-    private LocalDateTime breachedAt;
+    private Double temperature;
 
-    @PrePersist
-    public void onCreate() {
-        breachedAt = LocalDateTime.now();
-        if (resolutionStatus == null) {
-            resolutionStatus = "OPEN";
-        }
-    }
+    private String status;
 
-    // Getters and Setters
+    // getters and setters
 }
