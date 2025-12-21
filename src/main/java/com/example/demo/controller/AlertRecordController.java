@@ -1,46 +1,23 @@
-package com.example.demo.entity;
+package com.example.demo.controller;
 
-import jakarta.persistence.*;
+import com.example.demo.entity.AlertRecord;
+import com.example.demo.service.AlertService;
+import org.springframework.web.bind.annotation.*;
 
-@Entity
-public class AlertRecord {
+import java.util.List;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@RestController
+@RequestMapping("/alerts")
+public class AlertRecordController {
 
-    private Long shipmentId;   //  REQUIRED FIELD
+    private final AlertService alertService;
 
-    private String message;
-    private String alertType;
-
-    public AlertRecord() {}
-
-    public Long getId() {
-        return id;
+    public AlertRecordController(AlertService alertService) {
+        this.alertService = alertService;
     }
 
-    public Long getShipmentId() {
-        return shipmentId;
-    }
-
-    public void setShipmentId(Long shipmentId) {
-        this.shipmentId = shipmentId;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getAlertType() {
-        return alertType;
-    }
-
-    public void setAlertType(String alertType) {
-        this.alertType = alertType;
+    @GetMapping("/shipment/{shipmentId}")
+    public List<AlertRecord> getAlertsByShipment(@PathVariable Long shipmentId) {
+        return alertService.getAlertsByShipmentId(shipmentId);
     }
 }

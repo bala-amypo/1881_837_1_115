@@ -1,29 +1,36 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "alert_records")
 public class AlertRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String shipmentCode;
+    private Long shipmentId;
     private String message;
-    private String status;
 
-    private LocalDateTime createdAt;
+    public AlertRecord() {}
 
-    @PrePersist
-    public void onCreate() {
-        createdAt = LocalDateTime.now();
-        if (status == null) {
-            status = "SENT";
-        }
+    public Long getId() {
+        return id;
     }
 
-    // Getters and Setters
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
