@@ -1,14 +1,37 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.ShipmentRecord;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.ShipmentRecordRepository;
+import com.example.demo.service.ShipmentRecordService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ShipmentRecordService {
+@Service
+public class ShipmentRecordServiceImpl implements ShipmentRecordService {
 
-    ShipmentRecord createShipment(ShipmentRecord shipment);
+    private final ShipmentRecordRepository repository;
 
-    ShipmentRecord updateShipmentStatus(Long id, String status);
+    public ShipmentRecordServiceImpl(ShipmentRecordRepository repository) {
+        this.repository = repository;
+    }
 
-    List<ShipmentRecord> getAllShipments();
+    @Override
+    public ShipmentRecord createShipment(ShipmentRecord shipment) {
+        return repository.save(shipment);
+    }
+
+    @Override
+    public ShipmentRecord updateShipmentStatus(Long id, String status) {
+        ShipmentRecord shipment = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));
+        shipment.setStatus(status);
+        return repository.save(shipment);
+    }
+
+    @Override
+    public List<ShipmentRecord> getAllShipments() {
+        return repository.findAll();
+    }
 }
