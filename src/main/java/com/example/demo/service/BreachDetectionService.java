@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface BreachDetectionService {
 
-    List<BreachRecord> getAllBreaches();
+    BreachRecord logBreach(BreachRecord breach);
+
+    BreachRecord resolveBreach(Long id);
 
     List<BreachRecord> getBreachesByShipment(Long shipmentId);
 }
